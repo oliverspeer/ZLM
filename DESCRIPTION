@@ -1,12 +1,19 @@
 Package: ZLM
-Title: What the Package Does (One Line, Title Case)
+Title: Tidying Data from INLAB (ZLM) Data Files, and Analyzing the Data
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Oliver", "Speer", , "oliver.speer@startmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0005-0662-8688"))
+Description: Importing data from Excel files generated with "Auftrag2", tidying the data, and analyzing the data, e.g. caclulate reference intervals, and create plots. The package is designed to work with data from the ZLM (Zentrum für Labormedizin), St. Gallen, Switzerland.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Imports: 
+    data.table,
+    rlang,
+    dplyr,
+    lubridate,
+    readxl,
+    rstudioapi,
+    refineR

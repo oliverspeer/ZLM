@@ -1,3 +1,5 @@
+#' @importFrom rlang :=
+
 read_INLAB_data <- function(file.pattern, dir.path = NULL) {
   # Helper function to determine the data path
   get_data_path <- function(dir.path) {
@@ -60,7 +62,7 @@ read_INLAB_data <- function(file.pattern, dir.path = NULL) {
     dt[, Geb.datum := lubridate::ymd(Geb.datum)]
 
     return(dt)
-    assign(dt, envir = .GlobalEnv)
+
   }
 
   # Process all files
@@ -69,7 +71,7 @@ read_INLAB_data <- function(file.pattern, dir.path = NULL) {
   # next
   # Combine all processed data.tables
   dt.name <- data.table::rbindlist(all.data, use.names = TRUE, fill = TRUE)
-  # return(dt.name)
+
   # New column `sex` with 0 if dt.name$Geschl. == "F" and 1 if dt.name$Geschl. == "M"
   dt.name <- dt.name[, sex := ifelse(Geschl. == "F", 0, 1)]
 
@@ -83,7 +85,7 @@ read_INLAB_data <- function(file.pattern, dir.path = NULL) {
 
   # Prepare id.cols that are not to be melted
   id.cols <- names(dt.name)[!grepl("_\\d+", names(dt.name))]
-  # return(id.cols)
+
   # Melt the data.table
   DT.m1 <- data.table::melt(
     dt.name,
@@ -92,16 +94,16 @@ read_INLAB_data <- function(file.pattern, dir.path = NULL) {
     value.name = "Werte",
     na.rm = TRUE
   )
-  # return(DT.m1)
+
 
   # Split 'Bezeichnung_Methode' into two columns 'Bezeichnung' and 'Methode'
   DT.m1[, c("Bezeichnung", "Methode") := data.table::tstrsplit(Bezeichnung_Methode, "_", fixed = TRUE)
   ][, Bezeichnung_Methode := NULL
   ][, Methode := as.numeric(Methode)]
 
-  # return(DT.m1)
+
   dt.name <- data.table::setDT(DT.m1)
-  # return(dt.name)
+
   # Change the column names to be SQL compatible
   data.table::setnames(dt.name, old = c("Geb.datum", "Geschl.", "Auftragg."), new = c("DOB", "Geschlecht", "KundenID"))
 
@@ -116,7 +118,6 @@ read_INLAB_data <- function(file.pattern, dir.path = NULL) {
     Datum = as.character(Datum)
   )]
 
-  #return(dt.name)
-  assign("TidyData", dt.name, envir = .GlobalEnv)
-}
+  return(dt.name)
 
+}
