@@ -1,5 +1,15 @@
-#' @importFrom rlang :=
-
+#' import and tidy data from INLAB generated excel files
+#'
+#' @param file.pattern A string pattern to match the files to be read
+#' @param dir.path A string path to the directory containing the files to be read
+#'
+#' @return A data.table containing the imported data, together with calculated age an single date values
+#' @importFrom data.table :=
+#' @export
+#'
+#' @examples
+#' read_INLAB_data("BlutDxI", dir.path = "/home/olli/R_local/labStat/")
+#'
 read_INLAB_data <- function(file.pattern, dir.path = NULL) {
   # Helper function to determine the data path
   get_data_path <- function(dir.path) {
