@@ -17,3 +17,5 @@ Imports:
     readxl,
     rstudioapi,
     refineR
+URL: https://github.com/oliverspeer/ZLM
+BugReports: https://github.com/oliverspeer/ZLM/issues
